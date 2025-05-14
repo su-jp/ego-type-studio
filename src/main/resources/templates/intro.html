@@ -51,48 +51,7 @@
                     <a href="#" id="loginButton" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
                         <i class="ri-login-box-line mr-2"></i>로그인
                     </a>
-                    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-                        <div class="bg-white w-[320px] rounded-lg p-6 relative">
-                            <button id="closeLoginModal" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
-                                <i class="ri-close-line ri-lg"></i>
-                            </button>
-                            <h2 class="text-2xl font-bold mb-6 text-center">로그인</h2>
-                            <form id="loginForm" class="space-y-4">
-                                <div>
-                                    <input type="email" id="loginEmail" placeholder="이메일" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
-                                </div>
-                                <div>
-                                    <input type="password" id="loginPassword" placeholder="비밀번호" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
-                                </div>
-                                <button type="submit" class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-primary/90">로그인</button>
-                                <div class="flex justify-between text-sm">
-                                    <a href="#" class="text-gray-600 hover:text-primary">비밀번호 찾기</a>
-                                    <a href="#" class="text-gray-600 hover:text-primary">회원가입</a>
-                                </div>
-                            </form>
-                            <div class="mt-6">
-                                <div class="relative">
-                                    <div class="absolute inset-0 flex items-center">
-                                        <div class="w-full border-t border-gray-200"></div>
-                                    </div>
-                                    <div class="relative flex justify-center text-sm">
-                                        <span class="px-2 bg-white text-gray-500">간편 로그인</span>
-                                    </div>
-                                </div>
-                                <div class="mt-4 grid grid-cols-2 gap-3">
-                                    <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                                        <img src="https://readdy.ai/api/search-image?query=Kakao%20Talk%20logo%2C%20simple%20icon%2C%20isolated%20on%20white%20background&width=24&height=24&seq=7&orientation=squarish" alt="Kakao" class="w-6 h-6 mr-2">
-                                        카카오
-                                    </button>
-                                    <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                                        <img src="https://readdy.ai/api/search-image?query=Google%20logo%2C%20simple%20icon%2C%20isolated%20on%20white%20background&width=24&height=24&seq=8&orientation=squarish" alt="Google" class="w-6 h-6 mr-2">
-                                        구글
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="https://readdy.ai/home/5878cae4-b743-439d-876d-13edc04b6d46/97741b33-d395-4000-999f-dfc69218753a" data-readdy="true" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                    <a href="" id="joinButton" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
                         <i class="ri-user-add-line mr-2"></i>회원가입
                     </a>
                 </div>
@@ -214,6 +173,48 @@
     <button class="floating-button w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full shadow-lg cursor-pointer">
         <i class="ri-add-line ri-xl"></i>
     </button>
+</div>
+<!-- 로그인 팝업 -->
+<div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+    <div class="bg-white w-[320px] rounded-lg p-6 relative">
+        <button id="closeLoginModal" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+            <i class="ri-close-line ri-lg"></i>
+        </button>
+        <h2 class="text-2xl font-bold mb-6 text-center">로그인</h2>
+        <form id="loginForm" class="space-y-4">
+            <div>
+                <input type="email" id="loginEmail" placeholder="이메일" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
+            </div>
+            <div>
+                <input type="password" id="loginPassword" placeholder="비밀번호" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
+            </div>
+            <button type="submit" class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-primary/90">로그인</button>
+            <div class="flex justify-between text-sm">
+                <a href="#" class="text-gray-600 hover:text-primary">비밀번호 찾기</a>
+                <a href="#" class="text-gray-600 hover:text-primary">회원가입</a>
+            </div>
+        </form>
+        <div class="mt-6">
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-200"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-white text-gray-500">간편 로그인</span>
+                </div>
+            </div>
+            <div class="mt-4 grid grid-cols-2 gap-3">
+                <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <img src="" alt="Kakao" class="w-6 h-6 mr-2">
+                    카카오
+                </button>
+                <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
+                    <img src="" alt="Google" class="w-6 h-6 mr-2">
+                    구글
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- 탭바 -->
 <nav class="fixed w-full bottom-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
