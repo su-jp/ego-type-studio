@@ -2,9 +2,319 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>에고 타입 스튜디오</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ego Type STUDIO - MBTI 기반 심리테스트 제작 플랫폼</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#6366F1',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #FFFFFF;
+        }
+        .logo {
+            font-family: 'Pacifico', serif;
+        }
+        .floating-button {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
-<body>
-<h1>Hello, Ego Type Studio!</h1>
+<body class="bg-white text-gray-800">
+<!-- 헤더 -->
+<header class="fixed w-full top-0 bg-white shadow-sm z-50 px-4 py-2">
+    <div class="flex justify-between items-center">
+        <div class="logo text-primary text-2xl font-['Pacifico']">Ego Type Studio</div>
+        <div class="relative">
+            <button id="userMenuButton" class="w-10 h-10 flex items-center justify-center text-gray-700 cursor-pointer">
+                <i class="ri-user-line ri-lg"></i>
+            </button>
+            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+                <div id="guestMenu">
+                    <a href="#" id="loginButton" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="ri-login-box-line mr-2"></i>로그인
+                    </a>
+                    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+                        <div class="bg-white w-[320px] rounded-lg p-6 relative">
+                            <button id="closeLoginModal" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
+                                <i class="ri-close-line ri-lg"></i>
+                            </button>
+                            <h2 class="text-2xl font-bold mb-6 text-center">로그인</h2>
+                            <form id="loginForm" class="space-y-4">
+                                <div>
+                                    <input type="email" id="loginEmail" placeholder="이메일" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
+                                </div>
+                                <div>
+                                    <input type="password" id="loginPassword" placeholder="비밀번호" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
+                                </div>
+                                <button type="submit" class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-primary/90">로그인</button>
+                                <div class="flex justify-between text-sm">
+                                    <a href="#" class="text-gray-600 hover:text-primary">비밀번호 찾기</a>
+                                    <a href="#" class="text-gray-600 hover:text-primary">회원가입</a>
+                                </div>
+                            </form>
+                            <div class="mt-6">
+                                <div class="relative">
+                                    <div class="absolute inset-0 flex items-center">
+                                        <div class="w-full border-t border-gray-200"></div>
+                                    </div>
+                                    <div class="relative flex justify-center text-sm">
+                                        <span class="px-2 bg-white text-gray-500">간편 로그인</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 grid grid-cols-2 gap-3">
+                                    <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                        <img src="https://readdy.ai/api/search-image?query=Kakao%20Talk%20logo%2C%20simple%20icon%2C%20isolated%20on%20white%20background&width=24&height=24&seq=7&orientation=squarish" alt="Kakao" class="w-6 h-6 mr-2">
+                                        카카오
+                                    </button>
+                                    <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
+                                        <img src="https://readdy.ai/api/search-image?query=Google%20logo%2C%20simple%20icon%2C%20isolated%20on%20white%20background&width=24&height=24&seq=8&orientation=squarish" alt="Google" class="w-6 h-6 mr-2">
+                                        구글
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://readdy.ai/home/5878cae4-b743-439d-876d-13edc04b6d46/97741b33-d395-4000-999f-dfc69218753a" data-readdy="true" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="ri-user-add-line mr-2"></i>회원가입
+                    </a>
+                </div>
+                <div id="userMenu" class="hidden">
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="ri-user-settings-line mr-2"></i>프로필 보기
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="ri-file-list-line mr-2"></i>내 테스트 관리
+                    </a>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="ri-settings-3-line mr-2"></i>설정
+                    </a>
+                    <div class="h-px bg-gray-200 my-2"></div>
+                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
+                        <i class="ri-logout-box-line mr-2"></i>로그아웃
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- 메인 컨텐츠 -->
+<main class="pt-16 pb-20">
+    <!-- 메인 비주얼 -->
+    <section class="px-4 pt-8 pb-10">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold mb-2 text-gray-900">나만의 MBTI 테스트를<br>만들어보세요</h1>
+            <p class="text-gray-600 mb-6">간단한 제작 과정으로 나만의 성격 테스트 완성</p>
+            <div class="relative w-full h-56 mb-8 overflow-hidden rounded-lg">
+                <img src="/images/intro.jpg" alt="MBTI 테스트 일러스트레이션" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </section>
+    <!-- 핵심 가치 제안 -->
+    <section class="px-4 py-8 bg-gray-50">
+        <h2 class="text-2xl font-bold text-center mb-8">Ego Type STUDIO의 특별함</h2>
+        <div class="grid grid-cols-1 gap-4">
+            <!-- 카드 1 -->
+            <div class="feature-card bg-white p-5 rounded-lg shadow-sm transition-all">
+                <div class="flex items-start">
+                    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mr-4">
+                        <i class="ri-magic-line ri-lg text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">누구나 쉽게 제작</h3>
+                        <p class="text-gray-600 text-sm">코딩 지식 없이도 직관적인 인터페이스로 나만의 MBTI 테스트를 쉽게 만들 수 있어요.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 2 -->
+            <div class="feature-card bg-white p-5 rounded-lg shadow-sm transition-all">
+                <div class="flex items-start">
+                    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mr-4">
+                        <i class="ri-share-line ri-lg text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">간편한 공유</h3>
+                        <p class="text-gray-600 text-sm">소셜 미디어, 메신저 등 다양한 채널로 테스트를 쉽게 공유하고 친구들과 함께 즐겨보세요.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 카드 3 -->
+            <div class="feature-card bg-white p-5 rounded-lg shadow-sm transition-all">
+                <div class="flex items-start">
+                    <div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mr-4">
+                        <i class="ri-money-dollar-circle-line ri-lg text-primary"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">수익 창출 기회</h3>
+                        <p class="text-gray-600 text-sm">인기 있는 테스트를 만들어 광고 수익을 얻을 수 있는 기회, 당신의 창의력으로 수익을 창출하세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 사용법 안내 -->
+    <section class="px-4 py-10">
+        <h2 class="text-2xl font-bold text-center mb-8">어떻게 사용하나요?</h2>
+        <div class="space-y-8">
+            <!-- 단계 1 -->
+            <div class="bg-white rounded-lg overflow-hidden">
+                <div class="bg-primary/5 p-3">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full mr-3 font-medium">1</div>
+                        <h3 class="text-lg font-semibold">테스트 제작하기</h3>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm">직관적인 에디터로 질문과 결과를 쉽게 만들 수 있어요. 다양한 템플릿으로 빠르게 시작해보세요.</p>
+                </div>
+            </div>
+            <!-- 단계 2 -->
+            <div class="bg-white rounded-lg overflow-hidden">
+                <div class="bg-primary/5 p-3">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full mr-3 font-medium">2</div>
+                        <h3 class="text-lg font-semibold">공유하기</h3>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm">카카오톡, 인스타그램, 트위터 등 다양한 채널로 테스트를 공유하고 친구들의 결과를 확인해보세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 하단 CTA -->
+    <section class="px-4 py-10 text-center">
+        <h2 class="text-2xl font-bold mb-3">지금 바로 시작해보세요</h2>
+        <p class="text-gray-600 mb-6">1분 만에 가입하고 무료로 시작할 수 있어요</p>
+        <button class="bg-primary text-white py-3 px-8 rounded-button text-lg font-medium shadow-md hover:bg-primary/90 transition-all mb-3 w-full cursor-pointer">
+            무료로 시작하기
+        </button>
+        <p class="text-xs text-gray-500">가입 후 즉시 테스트 제작 가능</p>
+    </section>
+</main>
+<!-- 플로팅 버튼 -->
+<div class="fixed bottom-24 right-4 z-40">
+    <button class="floating-button w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full shadow-lg cursor-pointer">
+        <i class="ri-add-line ri-xl"></i>
+    </button>
+</div>
+<!-- 탭바 -->
+<nav class="fixed w-full bottom-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
+    <div class="grid grid-cols-4 h-16">
+        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
+            <div class="w-6 h-6 flex items-center justify-center text-primary">
+                <i class="ri-home-line"></i>
+            </div>
+            <span class="text-xs mt-1 text-primary font-medium">홈</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
+            <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                <i class="ri-compass-line"></i>
+            </div>
+            <span class="text-xs mt-1 text-gray-500">탐색</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
+            <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                <i class="ri-file-list-line"></i>
+            </div>
+            <span class="text-xs mt-1 text-gray-500">내 테스트</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
+            <div class="w-6 h-6 flex items-center justify-center text-gray-500">
+                <i class="ri-user-line"></i>
+            </div>
+            <span class="text-xs mt-1 text-gray-500">프로필</span>
+        </a>
+    </div>
+</nav>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        const loginButton = document.getElementById('loginButton');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const loginForm = document.getElementById('loginForm');
+
+        loginButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            loginModal.classList.remove('hidden');
+            userDropdown.classList.toggle('hidden');
+        });
+
+        closeLoginModal.addEventListener('click', function() {
+            loginModal.classList.add('hidden');
+        });
+
+        loginModal.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.classList.add('hidden');
+            }
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            if (email && password) {
+                console.log('Login attempt with:', email);
+                loginModal.classList.add('hidden');
+            }
+        });
+        const guestMenu = document.getElementById('guestMenu');
+        const userMenu = document.getElementById('userMenu');
+        const isLoggedIn = false;
+        if (isLoggedIn) {
+            guestMenu.classList.add('hidden');
+            userMenu.classList.remove('hidden');
+        } else {
+            guestMenu.classList.remove('hidden');
+            userMenu.classList.add('hidden');
+        }
+        userMenuButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', function(e) {
+            if (!userDropdown.contains(e.target) && !userMenuButton.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+        // 스크롤 애니메이션
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.feature-card');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                }
+            });
+        };
+        // 초기 로딩 시 애니메이션
+        animateOnScroll();
+        // 스크롤 시 애니메이션
+        window.addEventListener('scroll', animateOnScroll);
+    });
+</script>
 </body>
 </html>
