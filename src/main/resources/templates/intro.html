@@ -1,79 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ego Type STUDIO - MBTI 기반 심리테스트 제작 플랫폼</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>tailwind.config={theme:{extend:{colors:{primary:'#6366F1',secondary:'#F59E0B'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
-    <style>
-        :where([class^="ri-"])::before { content: "\f3c2"; }
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #FFFFFF;
-        }
-        .logo {
-            font-family: 'Pacifico', serif;
-        }
-        .floating-button {
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease;
-        }
-    </style>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<!-- 헤드 -->
+<head th:insert="fragments/head :: head"></head>
 <body class="bg-white text-gray-800">
 <!-- 헤더 -->
-<header class="fixed w-full top-0 bg-white shadow-sm z-50 px-4 py-2">
-    <div class="flex justify-between items-center">
-        <div class="logo text-primary text-2xl font-['Pacifico']">Ego Type Studio</div>
-        <div class="relative">
-            <button id="userMenuButton" class="w-10 h-10 flex items-center justify-center text-gray-700 cursor-pointer">
-                <i class="ri-user-line ri-lg"></i>
-            </button>
-            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
-                <div id="guestMenu">
-                    <a href="#" id="loginButton" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
-                        <i class="ri-login-box-line mr-2"></i>로그인
-                    </a>
-                    <a href="" id="joinButton" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
-                        <i class="ri-user-add-line mr-2"></i>회원가입
-                    </a>
-                </div>
-                <div id="userMenu" class="hidden">
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
-                        <i class="ri-user-settings-line mr-2"></i>프로필 보기
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
-                        <i class="ri-file-list-line mr-2"></i>내 테스트 관리
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
-                        <i class="ri-settings-3-line mr-2"></i>설정
-                    </a>
-                    <div class="h-px bg-gray-200 my-2"></div>
-                    <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">
-                        <i class="ri-logout-box-line mr-2"></i>로그아웃
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<div th:replace="fragments/header :: header"></div>
 <!-- 메인 컨텐츠 -->
 <main class="pt-16 pb-20">
     <!-- 메인 비주얼 -->
@@ -174,132 +105,13 @@
         <i class="ri-add-line ri-xl"></i>
     </button>
 </div>
-<!-- 로그인 팝업 -->
-<div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
-    <div class="bg-white w-[320px] rounded-lg p-6 relative">
-        <button id="closeLoginModal" class="absolute right-4 top-4 text-gray-500 hover:text-gray-700">
-            <i class="ri-close-line ri-lg"></i>
-        </button>
-        <h2 class="text-2xl font-bold mb-6 text-center">로그인</h2>
-        <form id="loginForm" class="space-y-4">
-            <div>
-                <input type="email" id="loginEmail" placeholder="이메일" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
-            </div>
-            <div>
-                <input type="password" id="loginPassword" placeholder="비밀번호" class="w-full px-4 py-2 border border-gray-200 rounded focus:outline-none focus:border-primary" required>
-            </div>
-            <button type="submit" class="w-full bg-primary text-white py-2 rounded-button font-medium hover:bg-primary/90">로그인</button>
-            <div class="flex justify-between text-sm">
-                <a href="#" class="text-gray-600 hover:text-primary">비밀번호 찾기</a>
-                <a href="#" class="text-gray-600 hover:text-primary">회원가입</a>
-            </div>
-        </form>
-        <div class="mt-6">
-            <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-200"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-white text-gray-500">간편 로그인</span>
-                </div>
-            </div>
-            <div class="mt-4 grid grid-cols-2 gap-3">
-                <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                    <img src="" alt="Kakao" class="w-6 h-6 mr-2">
-                    카카오
-                </button>
-                <button class="flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                    <img src="" alt="Google" class="w-6 h-6 mr-2">
-                    구글
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- 탭바 -->
-<nav class="fixed w-full bottom-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-50">
-    <div class="grid grid-cols-4 h-16">
-        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
-            <div class="w-6 h-6 flex items-center justify-center text-primary">
-                <i class="ri-home-line"></i>
-            </div>
-            <span class="text-xs mt-1 text-primary font-medium">홈</span>
-        </a>
-        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
-            <div class="w-6 h-6 flex items-center justify-center text-gray-500">
-                <i class="ri-compass-line"></i>
-            </div>
-            <span class="text-xs mt-1 text-gray-500">탐색</span>
-        </a>
-        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
-            <div class="w-6 h-6 flex items-center justify-center text-gray-500">
-                <i class="ri-file-list-line"></i>
-            </div>
-            <span class="text-xs mt-1 text-gray-500">내 테스트</span>
-        </a>
-        <a href="#" class="flex flex-col items-center justify-center cursor-pointer">
-            <div class="w-6 h-6 flex items-center justify-center text-gray-500">
-                <i class="ri-user-line"></i>
-            </div>
-            <span class="text-xs mt-1 text-gray-500">프로필</span>
-        </a>
-    </div>
-</nav>
+<div th:replace="fragments/nav :: nav"></div>
+<!-- 로그인 팝업 -->
+<div th:replace="fragments/login :: login"></div>
+<script src="/js/common.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const userMenuButton = document.getElementById('userMenuButton');
-        const userDropdown = document.getElementById('userDropdown');
-        const loginButton = document.getElementById('loginButton');
-        const loginModal = document.getElementById('loginModal');
-        const closeLoginModal = document.getElementById('closeLoginModal');
-        const loginForm = document.getElementById('loginForm');
-
-        loginButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            loginModal.classList.remove('hidden');
-            userDropdown.classList.toggle('hidden');
-        });
-
-        closeLoginModal.addEventListener('click', function() {
-            loginModal.classList.add('hidden');
-        });
-
-        loginModal.addEventListener('click', function(e) {
-            if (e.target === loginModal) {
-                loginModal.classList.add('hidden');
-            }
-        });
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            if (email && password) {
-                console.log('Login attempt with:', email);
-                loginModal.classList.add('hidden');
-            }
-        });
-        const guestMenu = document.getElementById('guestMenu');
-        const userMenu = document.getElementById('userMenu');
-        const isLoggedIn = false;
-        if (isLoggedIn) {
-            guestMenu.classList.add('hidden');
-            userMenu.classList.remove('hidden');
-        } else {
-            guestMenu.classList.remove('hidden');
-            userMenu.classList.add('hidden');
-        }
-        userMenuButton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            userDropdown.classList.toggle('hidden');
-        });
-        document.addEventListener('click', function(e) {
-            if (!userDropdown.contains(e.target) && !userMenuButton.contains(e.target)) {
-                userDropdown.classList.add('hidden');
-            }
-        });
         // 스크롤 애니메이션
         const animateOnScroll = function() {
             const elements = document.querySelectorAll('.feature-card');
