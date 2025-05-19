@@ -46,7 +46,7 @@
                         중복확인
                     </button>
                 </div>
-                <p id="emailStatus" class="mt-1 text-xs hidden"></p>
+                <p id="emailStatus" class="mt-1 text-xs"></p>
             </div>
             <!-- 비밀번호 입력 -->
             <div>
@@ -126,6 +126,66 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
 
+        // 이메일 유효성 검사
+        function isValidEmail(email) {
+            const re =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        // 이메일 중복확인
+        const checkEmailBtn = document.getElementById("checkEmailBtn");
+        const emailInput = document.getElementById("email");
+        const emailStatus = document.getElementById("emailStatus");
+        let emailChecked = false;
+
+        checkEmailBtn.addEventListener("click", async function () {
+            const email = emailInput.value.trim();
+            if (!email) {
+                emailStatus.textContent = "이메일을 입력해주세요.";
+                emailStatus.classList.remove("text-green-500");
+                emailStatus.classList.add("text-red-500");
+                return;
+            }
+            if (!isValidEmail(email)) {
+                emailStatus.textContent = "유효한 이메일 형식이 아닙니다.";
+                emailStatus.classList.remove("text-green-500");
+                emailStatus.classList.add("text-red-500");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/users/check-email?email=${encodeURIComponent(email)}`);
+                const data = await response.json();
+
+                if (data.available) {
+                    emailStatus.textContent = "사용 가능한 이메일입니다.";
+                    emailStatus.classList.remove("text-red-500");
+                    emailStatus.classList.add("text-green-500");
+                    checkEmailBtn.disabled = true;
+                    emailChecked = true;
+                } else {
+                    emailStatus.textContent = "이미 사용 중인 이메일입니다.";
+                    emailStatus.classList.remove("text-green-500");
+                    emailStatus.classList.add("text-red-500");
+                    checkEmailBtn.disabled = false;
+                    emailChecked = false;
+                }
+            } catch (e) {
+                emailStatus.textContent = "중복 확인 중 오류가 발생했습니다.";
+                emailStatus.classList.remove("text-green-500");
+                emailStatus.classList.add("text-red-500");
+                checkEmailBtn.disabled = false;
+                emailChecked = false;
+                console.log(e);
+            }
+        });
+
+        emailInput.addEventListener("input", function () {
+            emailStatus.textContent = "";
+            checkEmailBtn.disabled = false;
+            emailChecked = false;
+        });
 
         // 비밀번호 표시/숨김 토글
         const togglePassword = document.getElementById("togglePassword");
