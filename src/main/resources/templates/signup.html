@@ -151,6 +151,17 @@
         const emailStatus = document.getElementById("emailStatus");
         let emailChecked = false;
 
+        // 중복확인 버튼 활성화/비활성화 처리
+        function setButtonDisabled(isDisabled) {
+            checkEmailBtn.disabled = isDisabled;
+
+            if (isDisabled) {
+                checkEmailBtn.classList.add("opacity-50", "cursor-not-allowed");
+            } else {
+                checkEmailBtn.classList.remove("opacity-50", "cursor-not-allowed");
+            }
+        }
+
         checkEmailBtn.addEventListener("click", async function () {
             const email = emailInput.value.trim();
             if (!email) {
@@ -168,16 +179,16 @@
 
                 if (data.available) {
                     setEmailStatus("사용 가능한 이메일입니다.", "success");
-                    checkEmailBtn.disabled = true;
+                    setButtonDisabled(true);
                     emailChecked = true;
                 } else {
                     setEmailStatus("이미 사용 중인 이메일입니다.", "error");
-                    checkEmailBtn.disabled = false;
+                    setButtonDisabled(false);
                     emailChecked = false;
                 }
             } catch (e) {
                 setEmailStatus("중복 확인 중 오류가 발생했습니다.", "error");
-                checkEmailBtn.disabled = false;
+                setButtonDisabled(false);
                 emailChecked = false;
                 console.log(e);
             }
@@ -185,7 +196,7 @@
 
         emailInput.addEventListener("input", function () {
             emailStatus.textContent = "";
-            checkEmailBtn.disabled = false;
+            setButtonDisabled(false);
             emailChecked = false;
         });
 
