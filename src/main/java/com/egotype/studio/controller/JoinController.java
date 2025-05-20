@@ -11,8 +11,8 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/join")
+public class JoinController {
 
     private final UserService userService;
 

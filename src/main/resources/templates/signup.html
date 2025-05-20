@@ -174,7 +174,7 @@
             }
 
             try {
-                const response = await fetch(`/api/users/check-email?email=${encodeURIComponent(email)}`);
+                const response = await fetch(`/api/join/check-email?email=${encodeURIComponent(email)}`);
                 const data = await response.json();
 
                 if (data.available) {
@@ -337,7 +337,7 @@
             };
 
             try {
-                const response = await fetch("/api/users/signup", {
+                const response = await fetch("/api/join/signup", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
