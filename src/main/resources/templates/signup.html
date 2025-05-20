@@ -70,7 +70,7 @@
                     </div>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="w-full pl-10 pr-3 py-3 border border-gray-200 rounded focus:outline-none focus:border-primary" placeholder="비밀번호를 다시 입력하세요" required/>
                 </div>
-                <p id="passwordMatchStatus" class="mt-1 text-xs hidden"></p>
+                <p id="passwordMatchStatus" class="mt-1 text-xs"></p>
             </div>
             <!-- 개인정보 수집 동의 -->
             <div class="bg-gray-50 p-4 rounded-lg">
@@ -216,6 +216,31 @@
             } else {
                 icon.classList.remove("ri-eye-line");
                 icon.classList.add("ri-eye-off-line");
+            }
+        });
+
+        // 비밀번호 확인 체크
+        const passwordInput = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const passwordMatchStatus = document.getElementById("passwordMatchStatus");
+        let passwordChecked = false;
+
+        confirmPassword.addEventListener("input", function () {
+            if (passwordInput.value && this.value) {
+                if (passwordInput.value === this.value) {
+                    passwordMatchStatus.textContent = "비밀번호가 일치합니다.";
+                    passwordMatchStatus.classList.remove("text-red-500");
+                    passwordMatchStatus.classList.add("text-green-500");
+                    passwordChecked = true;
+                } else {
+                    passwordMatchStatus.textContent = "비밀번호가 일치하지 않습니다.";
+                    passwordMatchStatus.classList.remove("text-green-500");
+                    passwordMatchStatus.classList.add("text-red-500");
+                    passwordChecked = false;
+                }
+            } else {
+                passwordMatchStatus.textContent = "";
+                passwordChecked = false;
             }
         });
 
