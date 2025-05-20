@@ -133,6 +133,18 @@
             return re.test(email);
         }
 
+        // 이메일 상태 설정
+        function setEmailStatus(message, type) {
+            emailStatus.textContent = message;
+            emailStatus.classList.remove("text-green-500", "text-red-500");
+
+            if (type === "success") {
+                emailStatus.classList.add("text-green-500");
+            } else if (type === "error") {
+                emailStatus.classList.add("text-red-500");
+            }
+        }
+
         // 이메일 중복확인
         const checkEmailBtn = document.getElementById("checkEmailBtn");
         const emailInput = document.getElementById("email");
@@ -142,15 +154,11 @@
         checkEmailBtn.addEventListener("click", async function () {
             const email = emailInput.value.trim();
             if (!email) {
-                emailStatus.textContent = "이메일을 입력해주세요.";
-                emailStatus.classList.remove("text-green-500");
-                emailStatus.classList.add("text-red-500");
+                setEmailStatus("이메일을 입력해주세요.", "error");
                 return;
             }
             if (!isValidEmail(email)) {
-                emailStatus.textContent = "유효한 이메일 형식이 아닙니다.";
-                emailStatus.classList.remove("text-green-500");
-                emailStatus.classList.add("text-red-500");
+                setEmailStatus("유효한 이메일 형식이 아닙니다.", "error");
                 return;
             }
 
@@ -159,22 +167,16 @@
                 const data = await response.json();
 
                 if (data.available) {
-                    emailStatus.textContent = "사용 가능한 이메일입니다.";
-                    emailStatus.classList.remove("text-red-500");
-                    emailStatus.classList.add("text-green-500");
+                    setEmailStatus("사용 가능한 이메일입니다.", "success");
                     checkEmailBtn.disabled = true;
                     emailChecked = true;
                 } else {
-                    emailStatus.textContent = "이미 사용 중인 이메일입니다.";
-                    emailStatus.classList.remove("text-green-500");
-                    emailStatus.classList.add("text-red-500");
+                    setEmailStatus("이미 사용 중인 이메일입니다.", "error");
                     checkEmailBtn.disabled = false;
                     emailChecked = false;
                 }
             } catch (e) {
-                emailStatus.textContent = "중복 확인 중 오류가 발생했습니다.";
-                emailStatus.classList.remove("text-green-500");
-                emailStatus.classList.add("text-red-500");
+                setEmailStatus("중복 확인 중 오류가 발생했습니다.", "error");
                 checkEmailBtn.disabled = false;
                 emailChecked = false;
                 console.log(e);
